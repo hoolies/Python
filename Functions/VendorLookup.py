@@ -1,6 +1,5 @@
-# This script is made by xrouvell, reach out if you have any questions
-import re                                                   # for regex
-import requests                                             # for GET request
+from re import sub                                                  # for regex
+from requests import get                                            # for GET request
 
 
 # Declare the Variables
@@ -10,7 +9,7 @@ URL = 'https://gitlab.com/wireshark/wireshark/-/raw/master/manuf'           # Th
 # Generate an IOU list
 def VendorList(URL):
     # GET request, convert the data to UTF-8 and split the lines
-    GetRequest = requests.get(URL).content.decode('utf-8').splitlines(True)
+    GetRequest = get(URL).content.decode('utf-8').splitlines(True)
     # loop to parse the output
     atlast = False
     for line in GetRequest:
@@ -36,7 +35,7 @@ class VendorLookup():
     # Match MAC to a Vendor
     def Vendor(self):
         try:
-            RemoveSymbols = re.sub('\W', '', self.macaddr[0:8].upper())
+            RemoveSymbols = sub('\W', '', self.macaddr[0:8].upper())
             for i in range(len(RemoveSymbols)):
                 if re.match(r'[g-zG-Z]', RemoveSymbols[i]):
                     Company = 'Non HEX MAC'
