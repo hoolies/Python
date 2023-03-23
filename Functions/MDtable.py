@@ -1,9 +1,9 @@
-import re
-import clipboard
+from re import sub
+from clipboard import paste
 
 markup = []
 
-text = clipboard.paste()
+text = paste()
 
 splitlines = text.splitlines(True)
 
@@ -19,10 +19,10 @@ column = ' '.join(columns)
 # Create the Markdown
 for i,line in enumerate(splitlines):
     # Replace the tabs with space pipe spcae
-    replace = re.sub(r'\t', " | ", line)
+    replace = sub(r'\t', " | ", line)
     # Remove new lines and enter
-    line = re.sub(r'\r', '', replace)
-    replace = re.sub(r'\n', '', line)
+    line = sub(r'\r', '', replace)
+    replace = sub(r'\n', '', line)
     # Appends the changes to markdown
     markup.append(replace)
     # Add the columns
