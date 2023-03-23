@@ -1,7 +1,7 @@
-import re                                       # for RegEx
+from re import sub                                       # for RegEx
 
 
-# Parse the code to space delimiter, I am going to use textfsm instead
+# Parse the code to space delimiter
 def ParseCli(self):
     # Strip the extra empty lines
     new = self.strip('\n')
@@ -12,9 +12,9 @@ def ParseCli(self):
     # Runs a loop for each line in the CLI output
     for line in lines:
         # Merge many spaces to one spcae
-        monospace = re.sub(r'\s+', ' ', line)
+        monospace = sub(r'\s+', ' ', line)
         # Remove spaces from the end of the line
-        SpaceAtTheEnd = re.sub(r'\s$', '', monospace)
+        SpaceAtTheEnd = sub(r'\s$', '', monospace)
         # Splits the line with space as delimeter
         output = SpaceAtTheEnd.split(' ') 
         # Append the line to the list
