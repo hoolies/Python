@@ -1,8 +1,8 @@
-import re
-import clipboard
+from re import sub
+from clipboard import paste
 
 # Import clipboard to variable
-text = clipboard.paste()
+text = paste()
 
 # Split it to lines
 splitlines = text.splitlines(True)
@@ -11,7 +11,7 @@ splitlines = text.splitlines(True)
 splitlines.sort()
 
 # List comprehension with Regex
-out = [re.sub(r'\r|\n|^\s+', '', line) for line in splitlines]
+out = [sub(r'\r|\n|^\s+', '', line) for line in splitlines]
 
 # Print the output
 print(*out, sep = '\n')
