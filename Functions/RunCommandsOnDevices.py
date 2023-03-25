@@ -1,7 +1,7 @@
-import datetime                                                     # for timestamps
-import re                                                           # for regular expressions
-import getpass                                                      # for passwords
-import netmiko                                                      # for connection
+from datetime import datetime                       # for timestamps
+from re import sub                                  # for regular expressions
+from getpass import getpass                         # for passwords
+from netmiko import ConnectHandler                  # for connection
 
 
 # Set the Start Time
@@ -14,7 +14,7 @@ commands = []
 
 # Get the credentials
 username = input('Username: ')
-password = getpass.getpass('Password: ')
+password = getpass('Password: ')
 
 # Creates a file to save the output
 file = open(f"{username}-{time.day}-{time.month}-{time.hour}{time.minute}{time.microsecond}.txt", "w")
@@ -24,13 +24,12 @@ file.write(f'\nThe script started at: {StartTime}\n\n')
 print("Paste the commands.\n Once you are done, type done.\n ")
 while True:
     line = input()
-    if line == '':
+    if not line:
         pass
-    if line == "Done" or line == "done" or line == 'DONE':
+    if line.upper() == 'DONE':
         break
     if line:
-        clearline = re.sub(r'\s+', ' ', line.rstrip())
-        noice = clearline.lstrip()
+        clearline = re.sub(r'\s+', ' ', line.strip())
         commands.append(noice)
 
 
@@ -43,22 +42,22 @@ while True:
     if line == "Done" or line == "done" or line == 'DONE':
         break
     if line:
-        clearline = re.sub(r'\s+', ' ', line.rstrip())
+        clearline = sub(r'\s+', ' ', line.rstrip())
         noice = clearline.lstrip()
-        devices.append(noice)
+        devices.append(clearline)
 
 
 # Run a double loop for the devices and the commands
 for device in devices:
     print(f'Connecting to  {device}')
-    connection = netmiko.ConnectHandler(ip=device, device_type="cisco_ios",username=username, password=password, secret=password)
+    connection = ConnectHandler(ip=device, device_type="cisco_ios",username=username, password=password, secret=password)
     # Connect to enabled mode
     connection.enable()
     # Run the commands
     file.write(f'# {device} \n')
     for command in commands:
         # Check the time
-        time = datetime.datetime.now()
+        time = datetime.now()
         # Prints the name of the device and the command 
         print(f'\n\nRunning {command} on {device} on {device} at {time}')
         # Write the command, the device and the time on file 
@@ -77,7 +76,7 @@ for device in devices:
     connection.disconnect
 
 # Set the EndTime and the ExecutionTime
-time = datetime.datetime.now()
+time = datetime.now()
 EndTime = time.replace(microsecond=0)
 ExecutionTime = EndTime - StartTime
 
