@@ -1,4 +1,4 @@
-from re import sub                                                  # for regex
+from re import sub,match                                            # for regex
 from requests import get                                            # for GET request
 
 
@@ -36,21 +36,25 @@ class VendorLookup():
     def Vendor(self):
         try:
             RemoveSymbols = sub('\W', '', self.macaddr[0:8].upper())
-            for i in range(len(RemoveSymbols)):
-                if re.match(r'[g-zG-Z]', RemoveSymbols[i]):
-                    Company = 'Non HEX MAC'
+            for i in enumerate(RemoveSymbols):
+                if match(r'[g-zG-Z]', RemoveSymbols[i]):
+                    Company = 'Non HEX Characters'
             CleanMac = RemoveSymbols[0] + RemoveSymbols[1] + ':' + RemoveSymbols[2] + RemoveSymbols[3] + ':' + RemoveSymbols[4] + RemoveSymbols[5]
             for line in IOU:
                 if line[0].startswith(CleanMac):
                     Company = line[1]
-            return Company
         except Exception as UnboundLocalError:
             Company = 'N/A'
         return Company
 
-# If not imported
-if __name__ == '__main__':
+    
+def main():
     macaddr = input('Enter the MAC Address: ')
     IOU = VendorList(URL)
     vendor = VendorLookup(macaddr)
     print(vendor.Vendor())
+    
+    
+# If not imported
+if __name__ == '__main__':
+    main()
