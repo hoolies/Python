@@ -12,7 +12,7 @@ def ssh(device, commands):
         connection.enable()
         # Dictionary comprehension for command and output
         command_output = {command:connection.send_command(command) for command in commands}
-        connection.disconnect
+        connection.disconnect()
         return command_output
     except(AuthenticationException):
         print('Authentication failure: ' + device)
