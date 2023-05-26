@@ -4,7 +4,6 @@ def inpint(message):
             UserInput = int(input(message))
         except ValueError:
             print("Not an integer, try again!")
-            continue    
+            continue
         else:
             return UserInput
-            break
