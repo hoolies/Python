@@ -64,17 +64,10 @@ def ssh_connection(device, commands):
         connection.enable()
         # Run the commands
         file.write(f'# {device} \n')
-        for command in commands:
-            # Check the time
-            time = datetime.now()
-            # Prints the name of the device and the command
-            print(f'\n\nRunning {command} on {device} on {device} at {time}')
-            # Write the command, the device and the time on file
-            file.write(f'\n## {command} \n```\n')
-            # Connect to the device and run the command
+        # Connect to the device and run the command
         CommandOutput = {command:connection.send_command(command) for command in commands}
         # Close the ssh connection
-        connection.disconnect
+        connection.disconnect()
         # Return the output
         return CommandOutput
     # Exception handling

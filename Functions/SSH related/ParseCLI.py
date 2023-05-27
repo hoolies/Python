@@ -11,15 +11,15 @@ def ParseCli(self):
     self = []
     # Runs a loop for each line in the CLI output
     for line in lines:
-        # Merge many spaces to one spcae
+        # Merge many spaces to one space
         monospace = sub(r'\s+', ' ', line)
         # Remove spaces from the end of the line
         SpaceAtTheEnd = sub(r'\s$', '', monospace)
-        # Splits the line with space as delimeter
-        output = SpaceAtTheEnd.split(' ') 
+        # Splits the line with space as delimiter
+        output = SpaceAtTheEnd.split(' ')
         # Append the line to the list
         self.append(output)
-    # Return the CLI output as a list within a list, every line is an list and every word an entry   
+    # Return the CLI output as a list within a list, every line is an list and every word an entry
     return(self)
 
 

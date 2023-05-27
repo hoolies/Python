@@ -2,7 +2,7 @@ from netmiko import ConnectHandler, NetMikoTimeoutException
 from getpass import getpass
 
 username = input("Username: ")
-password = getpass("Password: ")
+password = getpass()
 
 #  SSH function
 def ssh(device, commands):
@@ -19,4 +19,4 @@ def ssh(device, commands):
     except(EOFError):
         print("End of file while attempting device " + device)
     except Exception as e:
-        print('Uknown error: ' + f"{e}")
+        print('Unknown error: ' + f"{e}")

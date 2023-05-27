@@ -1,4 +1,6 @@
 ## Scripts that manipulate clipboard
+These are scripts that I use in Windows with Espanso to allow me to do what gnu utils do in Linux,
+
 
 | Name | Description |
 |---|---|

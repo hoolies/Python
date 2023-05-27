@@ -1,4 +1,3 @@
-
 from re import sub
 from clipboard import paste
 
