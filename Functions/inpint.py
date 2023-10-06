@@ -1,4 +1,4 @@
-def inpint(message):
+def inpint(message: str) -> int:
     while True:
         try:
             UserInput = int(input(message))
