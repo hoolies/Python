@@ -20,13 +20,18 @@ def ssh(device, commands):
         print("End of file while attempting device " + device)
     except Exception as e:
         print('Unknown error: ' + f"{e}")
+    return command_output
 
 def main():
     # Device list
-    devices = input("Enter device list: ").split()
+    devices = input("Enter devices, leave a space between them:\n ").split()
     # Commands list
-    commands = input("Enter commands list: ").split()
-
+    commands = input("Enter commands leave a space between them:\n ").split()
+    # Loop through devices
+    for device in devices:
+        with open (f"{username}.md", "a") as f:
+            print(f"Connecting to {device}")
+            ssh(device, commands)
 
 if __name__ == '__main__':
     main()
