@@ -22,9 +22,13 @@ def ParseCli(self):
     # Return the CLI output as a list within a list, every line is an list and every word an entry
     return(self)
 
+def main():
+    command_output = input('Enter the commands: ')
+    output = ParseCli(command_output)
+    print(output)
+
+
 
 # If not imported
 if __name__ == '__main__':
-    commands = input('Enter the commands: ')
-    output = ParseCli(commands)
-    print(output)
+    main()
