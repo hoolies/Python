@@ -8,10 +8,6 @@ from concurrent.futures import ThreadPoolExecutor   # for multithreading
 time = datetime.now()
 StartTime = time.replace(microsecond=0)
 
-# Set the lists for devices and commands
-devices = []
-commands = []
-
 # Get the credentials
 username = input('Username: ')
 password = getpass()
@@ -20,27 +16,27 @@ password = getpass()
 file = open(f"{username}-{time.day}-{time.month}-{time.hour}{time.minute}{time.microsecond}.md", "w")
 file.write(f'\nThe script started at: {StartTime}\n\n')
 
-
-def whileloop(message):
+def whileloop(message,list):
     print(message)
     while True:
         line = input()
         if not line:
             pass
         if line.upper() == 'DONE':
-           return commands
+           return list
         if line:
             clearline = sub(r'\s+', ' ', line.strip())
-            commands.append(clearline)
+            list.append(clearline)
 
 
-
-# Set the list with commands
+# Set the list with commands and the devices. functional way with correction/
 commands = whileloop("Paste the commands.\n Once you are done, type done.\n ")
-
-
-# Set the list with  wit the devices
 devices = whileloop("Paste the devices.\n Once you are done, type done.\n ")
+
+# Non functional way to do this, if we are sure about input
+# Set the lists for devices and commands
+# devices = input("Enter the devices:\n").split()
+# commands = input("Enter the commands:\n").split()
 
 
 # Create concurrent function
