@@ -1,8 +1,10 @@
+"""This script use RegEx to parse CLI"""
 from re import sub                                       # for RegEx
 
 
-# Parse the code to space delimiter
+
 def ParseCli(self):
+    """Parse the code to space delimiter"""
     # Strip the extra empty lines
     new = self.strip('\n')
     # Split the string in lines
@@ -23,6 +25,7 @@ def ParseCli(self):
     return(self)
 
 def main():
+    """Main Function"""
     command_output = input('Enter the commands: ')
     output = ParseCli(command_output)
     print(output)
