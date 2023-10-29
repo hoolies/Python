@@ -1,11 +1,11 @@
 from netmiko import ConnectHandler, NetMikoTimeoutException
 from getpass import getpass
 
-username = input("Username: ")
-password = getpass()
+username: str = input("Username: ")
+password: str = getpass()
 
 #  SSH function
-def ssh(device, commands):
+def ssh(device: str, commands: str) -> dict:
     try:
         # Connection Handler
         connection = ConnectHandler(ip=device, device_type="cisco_ios", username=username, password=password, secret=password)
