@@ -5,7 +5,22 @@ username: str = input("Username: ")
 password: str = getpass()
 
 #  SSH function
-def ssh(device: str, commands: str) -> dict:
+def ssh(device: str, commands: list) -> dict:
+    """
+    This functions allows you to ssh to cisco devices and activate enable mode
+
+    Args:
+        device: FQDN or IP of the device
+        commands: list of strings, each element is command
+
+    Returns:
+        Returns a dictionary which each key is the command we execute and the value is the output
+
+    Raises:
+        NetMikoTimeoutException: Timeout Exception
+        EOFError: End of file error
+        Exception: Unknown error
+    """
     try:
         # Connection Handler
         connection = ConnectHandler(ip=device, device_type="cisco_ios", username=username, password=password, secret=password)
@@ -20,13 +35,12 @@ def ssh(device: str, commands: str) -> dict:
         print("End of file while attempting device " + device)
     except Exception as e:
         print('Unknown error: ' + f"{e}")
-    return command_output
 
 def main():
     # Device list
-    devices = input("Enter devices, leave a space between them:\n ").split()
+    devices: list = input("Enter devices, leave a space between them:\n ").split()
     # Commands list
-    commands = input("Enter commands leave a space between them:\n ").split()
+    commands: list = input("Enter commands delimited by commas:\n ").split(',')
     # Loop through devices
     for device in devices:
         with open (f"{username}.md", "a") as f:
