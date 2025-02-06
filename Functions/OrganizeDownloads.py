@@ -15,7 +15,7 @@ def main():
     if OS == 'posix':
         path = home + '/Downloads/'
     else:
-        path = home + '\Downloads\\'
+        path = home + '\\Downloads\\'
 
     # Get all the files of a folder
     files = os.listdir(path)
