@@ -3,14 +3,14 @@ from re import sub                                       # for RegEx
 
 
 
-def ParseCli(self):
+def ParseCli(text: str) -> list:
     """Parse the code to space delimiter"""
     # Strip the extra empty lines
-    new = self.strip('\n')
+    new = text.strip('\n')
     # Split the string in lines
     lines = new.splitlines(True)
-    # Initialize self and creates a list
-    self = []
+    # Initialize text: str and creates a list
+    text = []
     # Runs a loop for each line in the CLI output
     for line in lines:
         # Merge many spaces to one space
@@ -20,9 +20,9 @@ def ParseCli(self):
         # Splits the line with space as delimiter
         output = SpaceAtTheEnd.split(' ')
         # Append the line to the list
-        self.append(output)
+        text.append(output)
     # Return the CLI output as a list within a list, every line is an list and every word an entry
-    return(self)
+    return(text)
 
 def main():
     """Main Function"""
