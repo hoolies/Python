@@ -1,22 +1,23 @@
+from collections.abc import Callable                # Type hinting
+from concurrent.futures import ThreadPoolExecutor   # for multithreading
 from datetime import datetime                       # for timestamps
-from re import sub                                  # for regular expressions
 from getpass import getpass                         # for passwords
 from netmiko import ConnectHandler                  # for connection
-from concurrent.futures import ThreadPoolExecutor   # for multithreading
+from re import sub                                  # for regular expressions
 
 # Set the Start Time
 time = datetime.now()
 StartTime = time.replace(microsecond=0)
 
 # Get the credentials
-username = input('Username: ')
-password = getpass()
+username: str = input('Username: ')
+password: str = getpass()
 
 # Creates a file to save the output
 file = open(f"{username}-{time.day}-{time.month}-{time.hour}{time.minute}{time.microsecond}.md", "w")
 file.write(f'\nThe script started at: {StartTime}\n\n')
 
-def whileloop(message,list):
+def whileloop(message: str, list: list) -> list:
     print(message)
     while True:
         line = input()
@@ -30,23 +31,17 @@ def whileloop(message,list):
 
 
 # Set the list with commands and the devices. functional way with correction/
-commands = whileloop("Paste the commands.\n Once you are done, type done.\n ")
-devices = whileloop("Paste the devices.\n Once you are done, type done.\n ")
-
-# Non functional way to do this, if we are sure about input
-# Set the lists for devices and commands
-# devices = input("Enter the devices:\n").split()
-# commands = input("Enter the commands:\n").split()
-
+commands: list = whileloop("Paste the commands.\n Once you are done, type done.\n ")
+devices: list = whileloop("Paste the devices.\n Once you are done, type done.\n ")
 
 # Create concurrent function
-def asynch(function, list):
+def asynch(function: Callable, list: list) -> None:
     with ThreadPoolExecutor(max_workers=12) as executor:
         executor.map(function, list)
 
 
 # Run a double loop for the devices and the commands
-def ssh_connection(device, commands):
+def ssh_connection(device: str, commands: list):
     try:
         print(f'Connecting to  {device}')
         connection = ConnectHandler(
